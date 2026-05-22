@@ -1,17 +1,12 @@
 {
-  "name": "youtube-mcp",
+  "name": "youtube-api",
   "version": "1.0.0",
-  "description": "",
   "type": "module",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
-    "youtube-transcript": "^1.3.1"
+    "express": "^4.19.2",
+    "youtube-transcript": "^1.2.1"
   }
 }

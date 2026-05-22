@@ -1,30 +1,29 @@
+console.log("BOOT START");
+
 import express from "express";
 import { YoutubeTranscript } from "youtube-transcript";
 
 const app = express();
 app.use(express.json());
 
-// 👇 Browser test route (fixes your 404 confusion)
 app.get("/", (req, res) => {
-  res.send("YouTube Transcript API is running 🚀");
+    res.send("API WORKING");
 });
 
-// 👇 POST API for GPT / apps
 app.post("/transcript", async (req, res) => {
-  try {
-    const { url } = req.body;
+    try {
+        const { url } = req.body;
 
-    if (!url) return res.status(400).json({ error: "Missing url" });
+        const data = await YoutubeTranscript.fetchTranscript(url);
+        const text = data.map(x => x.text).join(" ");
 
-    const transcript = await YoutubeTranscript.fetchTranscript(url);
-    const text = transcript.map(t => t.text).join(" ");
-
-    res.json({ text });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+        res.json({ text });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
 });
 
-// 👇 REQUIRED for Render
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Server running on", PORT));
+app.listen(PORT, () => {
+    console.log("LISTENING ON", PORT);
+});
